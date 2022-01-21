@@ -97,9 +97,9 @@ public class FlashCardGUI {
 					
 					String question = studyCard.displayQuestion(studyCard);
 					if(question.equals(word)) {
-						answer = JOptionPane.showInputDialog(mainPanel, "What is the definition of: " + question);
+						answer = JOptionPane.showInputDialog(mainPanel, "What is the definition of: " + question + "?");
 					} else {
-						answer = JOptionPane.showInputDialog(mainPanel, "What word is associataed with: " + question);
+						answer = JOptionPane.showInputDialog(mainPanel, "What word is associataed with: " + question + "?");
 					}
 					
 					
