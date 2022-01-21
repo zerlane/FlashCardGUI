@@ -89,6 +89,8 @@ public class FlashCardGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					int rand = getRandom();
+					JOptionPane.showMessageDialog(mainPanel, rand);
 					
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(mainPanel, ex);
@@ -158,6 +160,23 @@ public class FlashCardGUI {
 		}
 		
 		return flashcards;
+	}
+	
+	public static int getRandom() {
+		double rand = Math.random();
+		int boxNum = 1;
+		
+		if(rand < 0.05) {
+			boxNum = 5;
+		} else if(0.05 <= rand && rand < 0.15) {
+			boxNum = 4;
+		} else if(0.15 <= rand && rand < 0.30) {
+			boxNum = 3;
+		} else if (0.30 <= rand && rand < 0.50) {
+			boxNum = 2;
+		}
+		
+		return boxNum;
 	}
 	
 	public static void main(String[] args) {
