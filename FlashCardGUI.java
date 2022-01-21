@@ -89,7 +89,7 @@ public class FlashCardGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					//might have to be redone for placement of boxes
+					//might have to be redone for placement of boxes.
 					FlashCard studyCard = getStudyCard();
 					int rand = getRandom();
 					String word = studyCard.getWord();
