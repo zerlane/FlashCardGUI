@@ -89,8 +89,20 @@ public class FlashCardGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					FlashCard studyCard = getStudyCard();
 					int rand = getRandom();
-					JOptionPane.showMessageDialog(mainPanel, rand);
+					String word = studyCard.getWord();
+					String defintion = studyCard.getDefinition();
+					String answer = "";
+					
+					String question = studyCard.displayQuestion(studyCard);
+					if(question.equals(word)) {
+						answer = JOptionPane.showInputDialog(mainPanel, "What is the definition of: " + question);
+					} else {
+						answer = JOptionPane.showInputDialog(mainPanel, "What word is associataed with: " + question);
+					}
+					
+					
 					
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(mainPanel, ex);
@@ -178,6 +190,70 @@ public class FlashCardGUI {
 		
 		return boxNum;
 	}
+	
+	public static FlashCard getStudyCard() {
+		
+		int rand = getRandom();
+		
+		//set up boxes
+		Box box1 = new Box();
+		Box box2 = new Box();
+		Box box3 = new Box();
+		Box box4 = new Box();
+		Box box5 = new Box();
+		
+		
+		List<FlashCard> flashcardNBox1 = readInFlashCards();
+		List<FlashCard> flashcardNBox2 = new ArrayList<FlashCard>();
+		List<FlashCard> flashcardNBox3 = new ArrayList<FlashCard>();
+		List<FlashCard> flashcardNBox4 = new ArrayList<FlashCard>();
+		List<FlashCard> flashcardNBox5 = new ArrayList<FlashCard>();
+		
+		box1.setFlashCards(flashcardNBox1);
+		box2.setFlashCards(flashcardNBox2);
+		box3.setFlashCards(flashcardNBox3);
+		box4.setFlashCards(flashcardNBox4);
+		box5.setFlashCards(flashcardNBox5);
+		
+		Box currentBox = box1;
+		List<FlashCard> currentFlashCardSet = currentBox.getFlashCards();
+		FlashCard studyCard = currentBox.chooseFlashCard(currentFlashCardSet);
+		
+		if(rand < 0.05) {
+        	if(box5.getFlashCards().size() != 0) {
+        		currentBox = box5;
+        	} else {
+        		rand = getRandom();
+        	}
+            
+        } else if (0.05 <= rand && rand < 0.15) {
+        	if(box4.getFlashCards().size() != 0) {
+        		currentBox = box4;
+        	} else {
+        		rand = getRandom();
+        	}
+        } else if (0.15 <= rand && rand < 0.30) {
+        	if(box3.getFlashCards().size() != 0) {
+        		currentBox = box3;
+        	} else {
+        		rand = getRandom();
+        	}
+        } else if (0.30 <= rand && rand < 0.50) {
+        	if(box2.getFlashCards().size() != 0) {
+        		currentBox = box2;
+        	} else {
+        		rand = getRandom();
+        	}
+        } else if (0.50 <= rand && rand < 1) {
+        	if(box1.getFlashCards().size() != 0) {
+        		currentBox = box1;
+        	} 
+        }
+		
+		
+		return studyCard;
+	}
+	
 	
 	public static void main(String[] args) {
 		new FlashCardGUI();
