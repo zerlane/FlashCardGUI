@@ -67,13 +67,16 @@ public class FlashCardGUI {
 					FlashCard lastElem = flashcards.get(flashcards.size() - 1);
 					String word = JOptionPane.showInputDialog(mainPanel, "Enter word");
 					String definition = JOptionPane.showInputDialog(mainPanel, "Enter definition");
-					
-					FlashCard newFC = new FlashCard(word, definition);
-					flashcards.add(newFC);
-					
-					updateFlashCardDB(flashcards);
-					
-					JOptionPane.showMessageDialog(mainPanel, "New word added!");
+						
+					if(!word.isBlank() || !definition.isBlank()) {
+						FlashCard newFC = new FlashCard(word, definition);
+						flashcards.add(newFC);
+						updateFlashCardDB(flashcards);
+						JOptionPane.showMessageDialog(mainPanel, "New word added!");
+					} else {
+						JOptionPane.showMessageDialog(mainPanel, "Null can't be added!");
+					}
+		
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(mainPanel, ex);
 				}
