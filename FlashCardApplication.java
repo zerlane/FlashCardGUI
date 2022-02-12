@@ -210,7 +210,7 @@ public class FlashCardApplication {
 					//choose box based on probability
 					
 					double rand = Math.random();
-			        
+			        System.out.println(currentBox);
 			        if(rand < 0.05) {
 			        	if(box5.getFlashCards().size() != 0) {
 			        		currentBox = box5;
@@ -239,8 +239,10 @@ public class FlashCardApplication {
 			        } else if (0.50 <= rand && rand < 1) {
 			        	if(box1.getFlashCards().size() != 0) {
 			        		currentBox = box1;
+
 			        	} 
 			        }
+			        System.out.println(currentBox);
 			        
 					
 					

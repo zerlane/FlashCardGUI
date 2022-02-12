@@ -3,7 +3,9 @@ package ncc1023_hw4;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -93,19 +95,43 @@ public class FlashCardGUI {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					//might have to be redone for placement of boxes.
-					FlashCard studyCard = getStudyCard();
-					int rand = getRandom();
+					
+					List<Box>mainBox = getStudy();
+					Box currentBox = mainBox.get(5);
+					List<FlashCard> currentFlashCardSet = currentBox.getFlashCards();
+					FlashCard studyCard = currentBox.chooseFlashCard(currentFlashCardSet);
+					System.out.println(studyCard);
+					
+					
 					String word = studyCard.getWord();
-					String defintion = studyCard.getDefinition();
+					String definition = studyCard.getDefinition();
 					String answer = "";
+					
+					boolean isCorrect = true;
 					
 					String question = studyCard.displayQuestion(studyCard);
 					if(question.equals(word)) {
 						answer = JOptionPane.showInputDialog(mainPanel, "What is the definition of: " + question + "?");
+						
+						if(!answer.equals(definition)) {
+							isCorrect = false;
+							JOptionPane.showMessageDialog(mainPanel, "Incorrect!");
+						} else {
+							JOptionPane.showMessageDialog(mainPanel, "Correct!");
+
+						}
+						
 					} else {
 						answer = JOptionPane.showInputDialog(mainPanel, "What word is associataed with: " + question + "?");
+						
+						if(!answer.equals(word)) {
+							isCorrect = false;
+							JOptionPane.showMessageDialog(mainPanel, "Incorrect!");
+						} else {
+							JOptionPane.showMessageDialog(mainPanel, "Correct!");
+
+						}
 					}
-					
 					
 					
 				} catch (Exception ex) {
@@ -195,7 +221,8 @@ public class FlashCardGUI {
 		return boxNum;
 	}
 	
-	public static FlashCard getStudyCard() {
+	public static List<Box> getStudy() {
+		
 		
 		int rand = getRandom();
 		
@@ -205,6 +232,7 @@ public class FlashCardGUI {
 		Box box3 = new Box();
 		Box box4 = new Box();
 		Box box5 = new Box();
+		
 		
 		
 		List<FlashCard> flashcardNBox1 = readInFlashCards();
@@ -223,9 +251,18 @@ public class FlashCardGUI {
 		List<FlashCard> currentFlashCardSet = currentBox.getFlashCards();
 		FlashCard studyCard = currentBox.chooseFlashCard(currentFlashCardSet);
 		
+		List<Box> mainBox = new ArrayList<Box>();
+		mainBox.add(box1);
+		mainBox.add(box2);
+		mainBox.add(box3);
+		mainBox.add(box4);
+		mainBox.add(box5);
+		mainBox.add(currentBox);
+		
 		if(rand < 0.05) {
         	if(box5.getFlashCards().size() != 0) {
         		currentBox = box5;
+        		System.out.println("Box 5");
         	} else {
         		rand = getRandom();
         	}
@@ -233,29 +270,36 @@ public class FlashCardGUI {
         } else if (0.05 <= rand && rand < 0.15) {
         	if(box4.getFlashCards().size() != 0) {
         		currentBox = box4;
+        		System.out.println("Box 4");
         	} else {
         		rand = getRandom();
         	}
         } else if (0.15 <= rand && rand < 0.30) {
         	if(box3.getFlashCards().size() != 0) {
         		currentBox = box3;
+        		System.out.println("Box 3");
         	} else {
         		rand = getRandom();
         	}
         } else if (0.30 <= rand && rand < 0.50) {
         	if(box2.getFlashCards().size() != 0) {
         		currentBox = box2;
+        		System.out.println("Box 2");
         	} else {
         		rand = getRandom();
         	}
         } else if (0.50 <= rand && rand < 1) {
         	if(box1.getFlashCards().size() != 0) {
         		currentBox = box1;
+        		System.out.println("Box 1");
         	} 
         }
 		
-		
-		return studyCard;
+//		Map<List<FlashCard>, Box> map = new HashMap();
+//		map.put(currentFlashCardSet, currentBox);
+//		
+//		
+		return mainBox;
 	}
 	
 	
