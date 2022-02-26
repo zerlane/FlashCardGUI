@@ -100,8 +100,6 @@ public class FlashCardGUI {
 					Box currentBox = mainBox.get(5);
 					List<FlashCard> currentFlashCardSet = currentBox.getFlashCards();
 					FlashCard studyCard = currentBox.chooseFlashCard(currentFlashCardSet);
-					System.out.println(studyCard);
-					
 					
 					String word = studyCard.getWord();
 					String definition = studyCard.getDefinition();
@@ -110,6 +108,19 @@ public class FlashCardGUI {
 					boolean isCorrect = true;
 					
 					String question = studyCard.displayQuestion(studyCard);
+					
+					JCheckBox checkDelete = new JCheckBox("Delete?");
+					JCheckBox checkFlip = new JCheckBox("Flip Card?");
+					
+					Object[] options = {checkDelete, checkFlip};
+					
+//					Object[] possibleValues = { "First", "Second", "Third" };
+//					Object selectedValue = JOptionPane.showInputDialog(null,
+//					"Choose one", "Input",
+//					JOptionPane.INFORMATION_MESSAGE, null,
+//					possibleValues, possibleValues[0]);
+					
+					
 					if(question.equals(word)) {
 						answer = JOptionPane.showInputDialog(mainPanel, "What is the definition of: " + question + "?");
 						
@@ -124,6 +135,8 @@ public class FlashCardGUI {
 					} else {
 						answer = JOptionPane.showInputDialog(mainPanel, "What word is associataed with: " + question + "?");
 						
+						
+						
 						if(!answer.equals(word)) {
 							isCorrect = false;
 							JOptionPane.showMessageDialog(mainPanel, "Incorrect!");
@@ -131,6 +144,13 @@ public class FlashCardGUI {
 							JOptionPane.showMessageDialog(mainPanel, "Correct!");
 
 						}
+					}
+					
+					int delete = JOptionPane.showConfirmDialog(mainPanel, "Would you like to delete this card?");
+					
+					if (delete == JOptionPane.YES_OPTION) {
+			           currentBox.deleteFlashCard(studyCard);
+			           
 					}
 					
 					
